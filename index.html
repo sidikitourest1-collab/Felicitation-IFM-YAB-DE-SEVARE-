@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#071a3d">
+<title>Félicitations — IFM</title>
+
+<style>
+:root{
+  --navy:#071a3d;
+  --gold:#d99a18;
+  --gold2:#f7d36b;
+  --cream:#fffaf0
+}
+
+*{
+  box-sizing:border-box
+}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  font-family:Georgia,"Times New Roman",serif
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(255,216,123,.22),
+      transparent 35%
+    ),
+    linear-gradient(
+      145deg,
+      #fffaf0 0%,
+      #f6ecd7 45%,
+      #fff 100%
+    );
+  color:var(--navy);
+  overflow-x:hidden
+}
+
+body:before,
+body:after{
+  content:"";
+  position:fixed;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  background:rgba(247,211,107,.18);
+  filter:blur(55px);
+  pointer-events:none;
+  z-index:-1
+}
+
+body:before{
+  top:-50px;
+  left:-40px
+}
+
+body:after{
+  bottom:-60px;
+  right:-40px
+}
+
+.page{
+  min-height:100vh;
+  padding:clamp(18px,4vw,45px) 12px;
+  display:flex;
+  justify-content:center;
+  align-items:center
+}
+
+.app{
+  width:min(980px,100%);
+  text-align:center
+}
+
+.header h1{
+  margin:0;
+  color:var(--navy);
+  font-size:clamp(24px,5vw,46px);
+  line-height:1.05;
+  font-weight:800
+}
+
+.header p{
+  margin:10px auto 22px;
+  max-width:700px;
+  font-size:clamp(14px,2.4vw,19px);
+  line-height:1.5
+}
+
+.panel{
+  width:min(720px,100%);
+  margin:0 auto 24px;
+  padding:clamp(18px,4vw,30px);
+  border:1px solid rgba(217,154,24,.45);
+  border-radius:26px;
+  background:rgba(255,255,255,.84);
+  box-shadow:0 18px 55px rgba(7,26,61,.13);
+  backdrop-filter:blur(10px)
+}
+
+.fields{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px
+}
+
+label{
+  display:block;
+  text-align:left;
+  font-weight:700;
+  font-size:14px;
+  margin-bottom:7px
+}
+
+input[type=text]{
+  width:100%;
+  min-height:52px;
+  border:1px solid #b8bfd0;
+  border-radius:14px;
+  padding:12px 15px;
+  font:17px Arial,sans-serif;
+  color:var(--navy);
+  outline:none;
+  background:#fff
+}
+
+input[type=text]:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 4px rgba(217,154,24,.12)
+}
+
+.continue{
+  width:100%;
+  margin-top:18px;
+  min-height:55px;
+  border:0;
+  border-radius:999px;
+  cursor:pointer;
+  color:#fff;
+  background:linear-gradient(
+    135deg,
+    #b97800,
+    #f1b52b,
+    #c8870a
+  );
+  font:bold 18px Arial,sans-serif;
+  box-shadow:0 12px 28px rgba(217,154,24,.3);
+  transition:.2s ease
+}
+
+.continue:hover{
+  transform:translateY(-2px)
+}
+
+.continue:active{
+  transform:scale(.98)
+}
+
+.error{
+  display:none;
+  margin-top:10px;
+  color:#b3261e;
+  font:14px Arial,sans-serif
+}
+
+.card-stage{
+  display:none;
+  animation:appear .8s ease both
+}
+
+@keyframes appear{
+  from{
+    opacity:0;
+    transform:translateY(25px) scale(.98)
+  }
+
+  to{
+    opacity:1;
+    transform:none
+  }
+}
+
+.poster-wrap{
+  position:relative;
+  width:min(900px,100%);
+  margin:0 auto;
+  overflow:hidden;
+  border-radius:22px;
+  box-shadow:0 25px 70px rgba(7,26,61,.28);
+  background:#fff
+}
+
+.poster{
+  display:block;
+  width:100%;
+  height:auto
+}
+
+.name-window{
+  position:absolute;
+  left:7.8%;
+  top:27.7%;
+  width:45%;
+  min-height:clamp(42px,7vw,72px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 12px;
+  border:2px solid rgba(217,154,24,.95);
+  border-radius:12px;
+  background:rgba(255,255,255,.92);
+  box-shadow:0 8px 22px rgba(7,26,61,.15);
+  color:var(--navy);
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:800;
+  font-size:clamp(17px,3.2vw,34px);
+  line-height:1.05;
+  text-align:center;
+  overflow-wrap:anywhere
+}
+
+.name-window:before{
+  content:"FÉLICITATIONS À";
+  position:absolute;
+  left:50%;
+  top:-15px;
+  transform:translateX(-50%);
+  padding:2px 10px;
+  white-space:nowrap;
+  border-radius:20px;
+  background:var(--gold);
+  color:#fff;
+  font:bold 10px Arial,sans-serif;
+  letter-spacing:1.2px
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:18px
+}
+
+.action{
+  min-height:48px;
+  padding:11px 20px;
+  border:0;
+  border-radius:999px;
+  cursor:pointer;
+  font:bold 14px Arial,sans-serif
+}
+
+.primary{
+  background:var(--navy);
+  color:#fff
+}
+
+.secondary{
+  background:#fff;
+  color:var(--navy);
+  border:1px solid #d7b45a
+}
+
+.note{
+  margin:12px auto 0;
+  color:#5b6680;
+  font:12px Arial,sans-serif
+}
+
+.music-status{
+  position:fixed;
+  right:14px;
+  bottom:14px;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:9px 12px;
+  border-radius:999px;
+  background:rgba(7,26,61,.9);
+  color:#fff;
+  font:12px Arial,sans-serif;
+  box-shadow:0 8px 25px rgba(0,0,0,.18);
+  border:1px solid rgba(247,211,107,.35)
+}
+
+.heart,
+.star{
+  position:fixed;
+  pointer-events:none;
+  z-index:50;
+  animation:floatUp linear forwards
+}
+
+@keyframes floatUp{
+  0%{
+    transform:translateY(0) rotate(0);
+    opacity:0
+  }
+
+  12%{
+    opacity:1
+  }
+
+  100%{
+    transform:translateY(-105vh) rotate(420deg);
+    opacity:0
+  }
+}
+
+@media(max-width:620px){
+
+  .fields{
+    grid-template-columns:1fr
+  }
+
+  .panel{
+    border-radius:20px
+  }
+
+  .poster-wrap{
+    border-radius:14px
+  }
+
+  .name-window{
+    left:7%;
+    top:27.5%;
+    width:48%;
+    min-height:35px;
+    padding:5px 7px;
+    border-width:1px;
+    border-radius:8px
+  }
+
+  .name-window:before{
+    top:-11px;
+    font-size:7px;
+    padding:2px 6px
+  }
+}
+
+@media(max-width:380px){
+
+  .page{
+    padding-left:7px;
+    padding-right:7px
+  }
+
+  .header h1{
+    font-size:24px
+  }
+
+  .header p{
+    font-size:13px
+  }
+
+  .panel{
+    padding:14px
+  }
+
+  .name-window{
+    font-size:15px
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *:before,
+  *:after{
+    animation:none!important;
+    transition:none!important
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIQUE : le fichier musique.mp3 doit être dans le même dossier -->
+<audio
+  id="musiqueAmbiante"
+  src="musique.mp3"
+  preload="auto"
+  loop
+></audio>
+
+<main class="page">
+
+<div class="app">
+
+<header class="header">
+
+<h1>🎓 Félicitation à TOI</h1>
+
+<p>
+IFM/YAB de SEVARE
+</p>
+
+</header>
+
+
+<section class="panel" id="formPanel">
+
+<div class="fields">
+
+<div>
+
+<label for="prenom">
+Prénom
+</label>
+
+<input
+  id="prenom"
+  type="text"
+  maxlength="35"
+  placeholder="Ex. Sidiki"
+  autocomplete="given-name"
+>
+
+</div>
+
+
+<div>
+
+<label for="nom">
+Nom
+</label>
+
+<input
+  id="nom"
+  type="text"
+  maxlength="35"
+  placeholder="Ex. Touré"
+  autocomplete="family-name"
+>
+
+</div>
+
+</div>
+
+
+<button
+  class="continue"
+  id="continueBtn"
+>
+🎁 AFFICHER LA SURPRISE ✨
+</button>
+
+
+<div
+  class="error"
+  id="error"
+>
+Entre au moins le prénom et le nom.
+</div>
+
+</section>
+
+
+<section
+  class="card-stage"
+  id="cardStage"
+>
+
+<div class="poster-wrap">
+
+<img
+  class="poster"
+  src="felicitations-ifm.png"
+  alt="Carte de félicitations pour admission à l'IFM"
+>
+
+<div
+  class="name-window"
+  id="nameWindow"
+>
+CVT Touré
+</div>
+
+</div>
+
+
+<div class="actions">
+
+<button
+  class="action primary"
+  id="replayBtn"
+>
+🎊 Rejouer la célébration
+</button>
+
+
+<button
+  class="action secondary"
+  id="editBtn"
+>
+✏️ Modifier le nom
+</button>
+
+</div>
+
+
+<div class="note">
+Les plus choses de la vie ne sont pas des choses mais des moments.
+</div>
+
+</section>
+
+</div>
+
+</main>
+
+
+<div
+  class="music-status"
+  id="musicStatus"
+>
+🎵 Musique ambiante
+</div>
+
+
+<script>
+
+const prenom =
+  document.getElementById("prenom");
+
+const nom =
+  document.getElementById("nom");
+
+const continueBtn =
+  document.getElementById("continueBtn");
+
+const errorBox =
+  document.getElementById("error");
+
+const formPanel =
+  document.getElementById("formPanel");
+
+const cardStage =
+  document.getElementById("cardStage");
+
+const nameWindow =
+  document.getElementById("nameWindow");
+
+const editBtn =
+  document.getElementById("editBtn");
+
+const replayBtn =
+  document.getElementById("replayBtn");
+
+const musicStatus =
+  document.getElementById("musicStatus");
+
+const musique =
+  document.getElementById("musiqueAmbiante");
+
+
+/* Volume de la musique */
+
+musique.volume = 0.35;
+
+
+/* Nettoyage du nom */
+
+function cleanName(v){
+
+  return v
+    .trim()
+    .replace(/\s+/g," ");
+
+}
+
+
+/*
+  Lancement de la vraie musique musique.mp3.
+
+  Le navigateur peut bloquer l'autoplay avec le son.
+  Dans ce cas, le premier clic/toucher débloque la musique.
+*/
+
+function lancerMusique(){
+
+  musique.play()
+    .then(()=>{
+
+      musicStatus.textContent =
+        "🎵 Musique ambiante • ON";
+
+    })
+    .catch(()=>{
+
+      musicStatus.textContent =
+        "🎵 Touchez l'écran pour lancer la musique";
+
+    });
+
+}
+
+
+/*
+  Tentative automatique dès l'ouverture.
+*/
+
+window.addEventListener(
+  "load",
+  ()=>{
+    lancerMusique();
+  }
+);
+
+
+/*
+  Si le navigateur bloque l'autoplay,
+  le premier geste de l'utilisateur
+  lance immédiatement la musique.
+*/
+
+["click","touchstart","pointerdown","keydown"].forEach(
+  evenement=>{
+
+    document.addEventListener(
+      evenement,
+      lancerMusique,
+      {
+        once:true,
+        passive:true
+      }
+    );
+
+  }
+);
+
+
+/* Animation de célébration */
+
+function celebration(){
+
+  const symbols=[
+    "❤️",
+    "✨",
+    "⭐",
+    "💛",
+    "🎓",
+    "🎉"
+  ];
+
+
+  for(let i=0;i<34;i++){
+
+    const el =
+      document.createElement("div");
+
+
+    el.className =
+      Math.random()>.45
+      ? "heart"
+      : "star";
+
+
+    el.textContent =
+      symbols[
+        Math.floor(
+          Math.random()*symbols.length
+        )
+      ];
+
+
+    el.style.left =
+      (Math.random()*100)+"vw";
+
+
+    el.style.bottom =
+      "-30px";
+
+
+    el.style.fontSize =
+      (14+Math.random()*24)+"px";
+
+
+    el.style.animationDuration =
+      (3+Math.random()*4)+"s";
+
+
+    el.style.animationDelay =
+      (Math.random()*1.2)+"s";
+
+
+    document.body.appendChild(el);
+
+
+    setTimeout(
+      ()=>el.remove(),
+      9000
+    );
+
+  }
+
+}
+
+
+/* Afficher la carte */
+
+function showCard(){
+
+  lancerMusique();
+
+
+  const first =
+    cleanName(prenom.value);
+
+  const last =
+    cleanName(nom.value);
+
+
+  if(!first || !last){
+
+    errorBox.style.display =
+      "block";
+
+    return;
+
+  }
+
+
+  errorBox.style.display =
+    "none";
+
+
+  nameWindow.textContent =
+    first+" "+last;
+
+
+  formPanel.style.display =
+    "none";
+
+
+  cardStage.style.display =
+    "block";
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+
+  celebration();
+
+}
+
+
+/* Bouton afficher la surprise */
+
+continueBtn.addEventListener(
+  "click",
+  showCard
+);
+
+
+/* Effacer l'erreur pendant la saisie */
+
+[prenom,nom].forEach(
+  input=>{
+
+    input.addEventListener(
+      "input",
+      ()=>{
+        errorBox.style.display =
+          "none";
+      }
+    );
+
+  }
+);
+
+
+/* Rejouer la célébration */
+
+replayBtn.addEventListener(
+  "click",
+  ()=>{
+
+    lancerMusique();
+
+    celebration();
+
+
+    cardStage.style.animation =
+      "none";
+
+
+    void cardStage.offsetWidth;
+
+
+    cardStage.style.animation =
+      "appear .8s ease both";
+
+  }
+);
+
+
+/* Modifier le nom */
+
+editBtn.addEventListener(
+  "click",
+  ()=>{
+
+    lancerMusique();
+
+
+    cardStage.style.display =
+      "none";
+
+
+    formPanel.style.display =
+      "block";
+
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+
+    prenom.focus();
+
+  }
+);
+
+</script>
+
+</body>
+</html>
